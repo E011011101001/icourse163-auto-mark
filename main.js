@@ -11,29 +11,20 @@
 
 /* globals       $ */
 (function () {
-
   function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms))
   }
 
-  async function start() {
-    $('html,body').animate({ scrollTop: 9999 }, 'slow')
+  function mark() {
+    $('html,body').animate({ scrollTop: 9999 }, 'slow') // scroll to bottom
     for (let s of $('.s')) {
-      mark(s)
+      s.children[s.children.length - 1].children[0].checked = true
     }
     for (let inputBox of $('textarea.inputtxt')) {
-      comment(inputBox)
+      inputBox.value = 'Good!'
     }
     $('a.j-submitbtn')[0].click()
     $('a.j-gotonext')[0].click()
-  }
-
-  function mark (s) {
-    s.children[s.children.length - 1].children[0].checked = true
-  }
-
-  function comment (inputBox) {
-    inputBox.value = 'Good!'
   }
 
   (async function check() {
@@ -43,7 +34,7 @@
     for (;;) {
       if ($('textarea').length > 0) {
         sleepTime = 1000
-        start()
+        mark()
         ++markedCnt
         if (markedCnt === 10) {
           break
@@ -52,5 +43,4 @@
       await sleep(sleepTime)
     }
   })()
-
 })()
